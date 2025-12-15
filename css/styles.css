@@ -2,7 +2,7 @@
     --blanco: white;
     --negro: black;
     /* Mobile-first header height (base) */
-    --header-height-mobile: 10rem;
+    --header-height-mobile: 6rem;
     --header-height-desktop: 6rem;
     --header-height: var(--header-height-mobile);
     --max-article-width-mobile: 92%;
@@ -13,27 +13,27 @@
 *, *::before, *::after {
     box-sizing: border-box;
 }
-
+section{
+    margin-top: 60px;
+}
 /* --- Base (mobile-first) --- */
 .titulo{
     color: var(--blanco);
 }
 
 header{
-    position: sticky;
-    top: 0;
+    position: static; /* no sticky */
     width: 100%;
     text-align: center;
-    padding: 1rem 0;
+    padding: 0.6rem 0; /* menos espacio vertical */
     color: white;
-    background-color: #151525; /* fondo sólido para que no deje ver el contenido detrás */
-    z-index: 1000; /* se sitúa por encima del contenido al hacer scroll */
+    background-color: #151525; /* fondo sólido */
     min-height: var(--header-height);
 }
 
 main{
     width: 100%;
-    padding-top: var(--header-height); /* deja espacio para el header sticky */
+    padding-top: 0; /* sin header sticky ya no hace falta padding extra */
 }
 
 body{
@@ -45,7 +45,7 @@ body{
 nav{
     width: 100%;
     background-color:#151525;
-    padding: 0.5rem 0.75rem;
+    padding: 0.4rem 0.6rem;
 }
 
 /* Mobile: stacked menu */
@@ -83,8 +83,8 @@ article{
     width: 100%;
     max-width: var(--max-article-width-mobile);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-    margin: 1rem auto;
-    padding: 0.9rem 1rem;
+    margin: 1.5rem auto; /* más separación entre secciones (móvil) */
+    padding: 0.75rem 0.9rem; /* padding más compacto */
 }
 
 article p{
@@ -93,8 +93,8 @@ article p{
 }
 
 h1{
-    font-size: 1.6rem;
-    margin: 0 0 0.5rem 0;
+    font-size: 1.4rem;
+    margin: 0 0 0.4rem 0;
     text-align: center;
 }
 
@@ -140,13 +140,13 @@ footer{
         max-width: var(--max-article-width-desktop);
         padding: 1rem 1.5rem;
         border-radius: 16px;
-        margin: 1.5rem auto;
+        margin: 2.5rem auto; /* más separación entre secciones (escritorio) */
     }
 
     h1{
         font-size: 2.5rem;
     }
 
-    /* adjust main padding to desktop header height */
-    main{ padding-top: var(--header-height); }
+    /* header no es sticky, no necesitamos padding extra en main */
+    main{ padding-top: 0; }
 }
