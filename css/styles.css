@@ -19,6 +19,7 @@ section{
 /* --- Base (mobile-first) --- */
 .titulo{
     color: var(--blanco);
+    font-size: 3em;
 }
 
 header{
@@ -67,7 +68,7 @@ nav{
     display: block;
     width: 100%;
     padding: 0.6rem 0.9rem;
-    background-color: var(--blanco);
+    background-color: lightskyblue;
     border: 1px solid black;
     border-radius: 999px; /* pill */
     color: var(--negro);
