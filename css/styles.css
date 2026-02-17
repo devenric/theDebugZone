@@ -8,7 +8,26 @@
     --max-article-width-mobile: 92%;
     --max-article-width-desktop: 820px;
 }
-
+.container-elementoGrafico{
+    display: flex;
+    justify-content: center;
+}
+.logo-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 225px;
+    height: 225px;
+    background-color: #0077ff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    margin: 20px auto;         /* Centra el bloque en la página */
+}
+.logo{
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    border-radius: 100px;
+}
 /* Normalize box model */
 *, *::before, *::after {
     box-sizing: border-box;
@@ -33,14 +52,13 @@ header{
 }
 
 main{
-    width: 100%;
+    
     padding-top: 0; /* sin header sticky ya no hace falta padding extra */
 }
 
 body{
-    background-color: #1a1a2e;
-    margin: 0;
-    font-family: Georgia, 'Times New Roman', serif;
+   width: 100%;
+
 }
 
 nav{
@@ -203,4 +221,33 @@ footer{
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+/* 1. El contenedor principal debe estar "encima" del footer */
+.main-wrapper {
+    position: relative;
+    z-index: 2; /* Capa superior */
+    background-color: #1a1a2e;
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;    margin-bottom: 500px; /* ¡OJO! Este margen debe ser igual a la altura de tu footer */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Opcional: para dar profundidad al "despegar" */
+    
+}
+
+/* 2. El footer se queda fijo al fondo */
+.site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 500px; /* Ajusta esto según el contenido de tu footer */
+    z-index: 1; /* Capa inferior */
+    background-color: #2c2f33; /* El color oscuro de tu imagen */
+    color: white;
+}
+html,body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    /* El overflow-x oculto es tu mejor amigo aquí */
+    overflow-x: hidden; 
 }
