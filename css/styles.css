@@ -151,3 +151,56 @@ footer{
     /* header no es sticky, no necesitamos padding extra en main */
     main{ padding-top: 0; }
 }
+/* Estilos generales para el contenedor (opcional para centrar) */
+.aboutme {
+    text-align: center;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- ESTILOS DEL BOTÓN D20 --- */
+.btn-d20 {
+    background-color: #2c3e50; /* Gris azulado profundo */
+    color: #ecf0f1;           /* Blanco suave */
+    border: 2px solid #34495e;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Efecto Hover (Al pasar el ratón) */
+.btn-d20:hover {
+    background-color: #34495e;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Efecto Active (Al hacer clic) */
+.btn-d20:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* --- ESTILO PARA EL TEXTO OCULTO --- */
+.oculto {
+    display: none;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fdf5e6; /* Color pergamino viejo */
+    border-left: 5px solid #2c3e50;
+    color: #333;
+    font-style: italic;
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Animación simple para que el texto aparezca suavemente */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
