@@ -6,30 +6,36 @@
     <title>D20Gate - Mi Primer Crud con Estilos</title>
     <link rel="stylesheet" href="./css/styles.css">
     <script src="./js/script.js" async></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <header>
-        <h1 class="titulo">TheDebugZone</h1>
-        <nav class="main-nav">
-            <ul class="nav-lista">
-                <li class="elemento-nav"><a href="index.html">Sobre Mí</a></li>
-                <li class= "elemento-nav"><a href="D20Gate.html">CRUD Drangones y Mazmorras - D20Gate</a></li>
-                <li class="elemento-nav"><a href="#">Experiencia Laboral</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-    <article class="aboutme">
-    <h1>D20Gate</h1>
-    <p>Este es mi primer proyecto. Se trata de un sistema CRUD con arquitectura MVC.</p>
-    <p>Registro de personajes del juego de rol <strong>Dragones y Mazmorras.</strong></p><br>
-    
-    <button id="btnMostrar" class="btn-d20">Ver explicación completa</button>
-    <div id="textoPrueba" class="oculto">
-        <p>Este es mi primer proyecto. Se trata de un sistema CRUD con arquitectura MVC</p>
+<body style="background-color: #1a1a2e;"> <div class="main-wrapper">
+        <header>
+            <nav class="main-nav" style="padding: 1rem; text-align: center;">
+                <a href="index.html" class="btn-d20" style="text-decoration: none; display: inline-block;">&larr; Volver al Portfolio</a>
+            </nav>
+        </header>
+
+        <main>
+            <article> 
+                <h1>D20Gate</h1>
+                <p>Este es mi primer proyecto. Se trata de un sistema CRUD con arquitectura MVC.</p>
+                <p>La página se basa en un registro de personajes del juego de rol <strong>Dragones y Mazmorras.</strong></p><br> 
+                <a href="https://d20gate.kesug.com/">D20Gate-<strong>Entrar</strong></a><br><br>
+                <button id="btnMostrar" class="btn-d20">Ver explicación completa</button>
+                <div id="textoPrueba" class="oculto">
+                    <p>Explicación del CRUD aquí. Lorem ipsum dolor sit amet...</p>
+                </div>
+            </article>
+        </main>
     </div>
-</article>
-</main>
-<footer>&copy; TheDebugZone. Todos los derechos reservados.</footer>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            &copy; TheDebugZone. Todos los derechos reservados.
+        </div>
+    </footer>
+
 </body>
 </html>

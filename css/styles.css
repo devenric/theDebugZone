@@ -12,15 +12,208 @@
     display: flex;
     justify-content: center;
 }
-.logo-container{
+/* --- ANIMACIÓN HOLOGRÁFICA DE "SOBRE MÍ" --- */
+
+/* 1. El estado inicial (Apagado/Oculto) */
+section.aboutme article {
+    /* Ocultamos visualmente */
+    opacity: 0;
+    visibility: hidden;
+    
+    /* TRUCO: Max-height 0 hace que no ocupe espacio cuando está cerrado.
+       Al animarlo, la web "crecerá" suavemente empujando el contenido. */
+    max-height: 0;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden; /* Necesario para cortar el contenido mientras crece */
+
+    /* La Transformación:
+       Lo hacemos un pelín más pequeño (scale 0.95) y lo subimos (-20px)
+       para que parezca que "baja" del logo al aparecer. */
+    transform: translateY(-20px) scale(0.95);
+    
+    /* Añadimos desenfoque para efecto "tech" */
+    filter: blur(10px);
+
+    /* La Transición (La suavidad del movimiento)
+       cubic-bezier crea un efecto "elástico" al final */
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 2. El estado "Activado" (Hover) 
+   Se activa cuando el ratón está sobre el contenedor gráfico (logo)
+   O cuando está sobre el propio artículo (para poder leerlo sin que se cierre) */
+.container-elementoGrafico:hover + article,section.aboutme article:hover {
+    /* Lo hacemos visible */
+    opacity: 1;
+    visibility: visible;
+    
+    /* Restauramos el espacio (ponemos una altura máxima suficiente) */
+    max-height: 1000px; 
+    
+    /* Restauramos el relleno y márgenes para que respire */
+    margin-top: 1.5rem;
+    padding: 1.5rem; /* Ajusta esto a tu gusto */
+    
+    /* Lo ponemos en su sitio original y enfocado */
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+    
+    /* Glow extra para que destaque al leer */
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2), 0 0 15px rgba(135, 206, 250, 0.3);
+}   
+.logo-container::after {
+    content: '';
+    position: absolute;
+    top: 80%; /* Empieza casi al final del círculo */
+    left: 50%;
+    transform: translateX(-50%);
+    /* Un cono de luz hecho con bordes transparentes */
+    width: 0; 
+    height: 0; 
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-top: 150px solid rgba(135, 206, 250, 0.0); /* Invisible al inicio */
+    pointer-events: none; /* Para que no interfiera con el ratón */
+    transition: all 0.5s ease;
+    opacity: 0;
+    z-index: -1; /* Detrás del logo */
+}
+.container-elementoGrafico:hover .logo-container,
+article.aboutme:hover ~ .container-elementoGrafico .logo-container {
+     /* El logo se eleva un poco y brilla más */
+    transform: translateY(-15px) scale(1.05);
+    box-shadow: 0 0 60px rgba(135, 206, 250, 0.8), 0 0 100px rgba(150, 100, 255, 0.6);
+    animation: none; /* Pausamos el pulso idle */
+}
+
+/* Activamos el haz de luz al hacer hover en el logo */
+.container-elementoGrafico:hover .logo-container::after {
+    opacity: 1;
+    border-top-color: rgba(135, 206, 250, 0.2); /* Luz azul ténue */
+    top: 100%; /* Baja un poco */
+}
+.logo-container:hover {
+    transform: scale(1.05); /* Pequeño zoom en el logo al tocarlo */
+}
+.logo-container {
+    /* Mantenemos tu estilo base */
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 225px;
-    height: 225px;
-    background-color: #0077ff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    margin: 20px auto;         /* Centra el bloque en la página */
+    width: 240px;
+    height: 240px;
+    margin: 20px auto;
+    border-radius: 50%;
+    background: radial-gradient(circle, #6a4c93 0%, #382675 40%, #1a1a2e 80%);
+    
+    /* UX: Cursor de mano para indicar interacción */
+    cursor: pointer;
+    position: relative; /* Necesario para los efectos de luz */
+    z-index: 10; /* Asegura que el logo esté siempre encima del texto */
+    
+    /* ANIMACIÓN IDLE: Un "pulso" suave que invita a tocar */
+    box-shadow: 0 0 30px rgba(150, 100, 255, 0.4), 0 0 60px rgba(80, 50, 160, 0.2);
+    animation: pulso-energia 3s infinite ease-in-out;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+@keyframes pulso-energia {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.03); opacity: 1; box-shadow: 0 0 50px rgba(150, 100, 255, 0.6), 0 0 80px rgba(80, 50, 160, 0.4); }
+}
+article.aboutme {
+    /* POSICIONAMIENTO ABSOLUTO: La clave para que no empuje el fondo */
+    position: absolute;
+    top: 280px; /* Justo debajo del logo (ajusta según necesites) */
+    left: 50%;
+    /* Centrado horizontal perfecto y un pequeño margen superior */
+    transform: translateX(-50%) translateY(30px) scale(0.9);
+    z-index: 5; /* Encima del fondo, debajo del logo */
+    
+    /* Estado inicial: Oculto y comprimido */
+    opacity: 0;
+    visibility: hidden;
+    
+    /* Estilos visuales del cuadro de texto */
+    width: 90%;
+    max-width: var(--max-article-width-desktop);
+    background: rgba(21, 21, 37, 0.95); /* Fondo semi-transparente */
+    border: 1px solid lightskyblue; /* Borde tecnológico */
+    box-shadow: 0 0 20px rgba(135, 206, 250, 0.2) inset; /* Brillo interior */
+    backdrop-filter: blur(10px); /* Efecto cristal esmerilado (muy pro) */
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    
+    /* La Transición de Materialización (Efecto elástico futurista) */
+    transition: 
+        opacity 0.4s ease,
+        transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), /* Efecto "rebote" */
+        visibility 0.4s ease;
+    pointer-events: none; /* No interactuable mientras está oculto */
+}
+
+/* ESTADO VISIBLE DEL HOLOGRAMA */
+/* Se activa al hacer hover en el contenedor GRÁFICO o en el propio ARTÍCULO */
+.container-elementoGrafico:hover + article.aboutme,
+article.aboutme:hover {
+    opacity: 1;
+    visibility: visible;
+    /* Se coloca en su sitio, a escala real */
+    transform: translateX(-50%) translateY(0) scale(1);
+    pointer-events: auto; /* Ahora sí se puede seleccionar el texto */
+}
+/* 2. LA SECUENCIA DE ENTRADA (Cuando haces Hover) */
+
+/* --- EL TÍTULO (Entra primero) --- */
+.container-elementoGrafico:hover + article.aboutme h1,
+article.aboutme:hover h1 {
+    opacity: 1;
+    transform: translateY(0); /* Vuelve a su sitio */
+    
+    /* AQUÍ ESTÁ EL TRUCO: Transition-delay
+       Le decimos: "Espera 0.2 segundos antes de empezar a aparecer".
+       Esto da tiempo a que la caja azul se abra primero. */
+    transition: opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-delay: 0.15s; 
+}
+/* --- EL PÁRRAFO (Entra después) --- */
+.container-elementoGrafico:hover + article.aboutme p,
+article.aboutme:hover p {
+    opacity: 1;
+    transform: translateY(0);
+    
+    /* Le decimos: "Espera 0.3 segundos". 
+       Así entra justo después del título. */
+    transition: opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-delay: 0.3s; 
+}
+/* Pequeño ajuste para el título dentro del holograma */
+article.aboutme h1 {
+    color: lightskyblue;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 10px rgba(135, 206, 250, 0.5);
+}
+article.aboutme h1, 
+article.aboutme p {
+    opacity: 0; /* Invisibles */
+    /* Los empujamos 20px hacia abajo para que luego "suban" al aparecer */
+    transform: translateY(20px); 
+    
+    /* La transición de salida (cuando quitas el ratón) debe ser rápida */
+    transition: opacity 0.2s, transform 0.2s; 
+}
+section.aboutme {
+    position: relative; /* ¡Crucial para que el hijo absoluto se centre aquí! */
+    /* Aseguramos altura mínima para que el texto no se corte al flotar */
+    min-height: 400px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
 }
 .logo{
     width: 200px;
@@ -52,13 +245,13 @@ header{
 }
 
 main{
-    
     padding-top: 0; /* sin header sticky ya no hace falta padding extra */
 }
 
-body{
+body {
    width: 100%;
-
+   font-family: "Space Grotesk", sans-serif;
+   background-color: #1a1a2e; /* ¡IMPORTANTE! Asegura el fondo oscuro base */
 }
 
 nav{
@@ -173,7 +366,7 @@ footer{
 .aboutme {
     text-align: center;
     padding: 2rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Space Grotesk", sans-serif;
 }
 
 /* --- ESTILOS DEL BOTÓN D20 --- */
@@ -225,24 +418,27 @@ footer{
 /* 1. El contenedor principal debe estar "encima" del footer */
 .main-wrapper {
     position: relative;
-    z-index: 2; /* Capa superior */
+    z-index: 2;
     background-color: #1a1a2e;
-    margin: 0;
-    font-family: Georgia, 'Times New Roman', serif;    margin-bottom: 500px; /* ¡OJO! Este margen debe ser igual a la altura de tu footer */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Opcional: para dar profundidad al "despegar" */
     
+    /* CAMBIO 1: El margen debe ser IGUAL a la altura del footer */
+    margin-bottom: 300px; 
+    
+    min-height: 100vh; /* Asegura que cubra la pantalla al principio */
+    /* PATRÓN CYBER GRID */
+    /* Crea líneas verticales y horizontales muy finas y transparentes */
+    background-image: 
+        linear-gradient(rgba(135, 206, 250, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(135, 206, 250, 0.03) 1px, transparent 1px);
+    
+    /* El tamaño de cada cuadrito del papel milimetrado */
+    background-size: 40px 40px;
 }
-
 /* 2. El footer se queda fijo al fondo */
+/* Confirma que tu footer mide 300px */
 .site-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 500px; /* Ajusta esto según el contenido de tu footer */
-    z-index: 1; /* Capa inferior */
-    background-color: #2c2f33; /* El color oscuro de tu imagen */
-    color: white;
+    height: 300px; 
+    /* ... resto de tus estilos ... */
 }
 html,body{
     margin: 0;
