@@ -423,7 +423,7 @@ footer{
     /* CAMBIO 1: El margen debe ser IGUAL a la altura del footer */
      
     
-    min-height: 100vh; /* Asegura que cubra la pantalla al principio */
+    min-height: 90vh; /* Asegura que cubra la pantalla al principio */
     /* PATRÓN CYBER GRID */
     /* Crea líneas verticales y horizontales muy finas y transparentes */
     background-image: 
